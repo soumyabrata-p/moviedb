@@ -2,11 +2,9 @@ package com.xyzcorp.moviedb.controllers;
 
 import com.xyzcorp.moviedb.model.MovieDetails;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +37,7 @@ public class MovieController {
 
     @GetMapping(value = "/moviebyid",produces = MediaType.APPLICATION_JSON_VALUE)
     public MovieDetails getMovieById(@RequestParam Long movieId) {
-        List<MovieDetails> movieDetailsList = getMovieDetailList();
+        List<MovieDetails> movieDetailsList = getMovieDetailList(null);
         Optional<MovieDetails> details = movieDetailsList.stream().filter(x -> x.getMovieId().equals(movieId)).findFirst();
         if(details.isPresent()) {
             return details.get();
@@ -48,10 +46,37 @@ public class MovieController {
 
     }
 
+    @GetMapping(value = "/moviebyid/{movieId}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public MovieDetails getMovieByIdVariable(@PathVariable("movieId") Long movieId) {
+        List<MovieDetails> movieDetailsList = getMovieDetailList(null);
+        Optional<MovieDetails> details = movieDetailsList.stream().filter(x -> x.getMovieId().equals(movieId)).findFirst();
+        if(details.isPresent()) {
+            return details.get();
+        }
+        return null;
+
+    }
+
+    @PostMapping(value = "/addmovie", consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MovieDetails> addMovieDetails(@RequestBody MovieDetails movie) {
+
+        List<MovieDetails> movieDetailsList = getMovieDetailList(movie);
+        return movieDetailsList;
+
+    }
+
+    @DeleteMapping(value = "/deletebyid", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MovieDetails> deleteMovieDetails(@RequestParam Long movieId) {
+
+        List<MovieDetails> movies = getMovieDetailList(null);
+        movies.removeIf(movieDetails -> movieDetails.getMovieId().equals(movieId));
+
+        return movies;
+    }
 
 
 
-    public List<MovieDetails> getMovieDetailList(){
+    public List<MovieDetails> getMovieDetailList(MovieDetails movie){
 
         List<MovieDetails> movieDetailsList = new ArrayList<>();
 
@@ -76,6 +101,9 @@ public class MovieController {
         movieDetailsList.add(movie1);
         movieDetailsList.add(movie2);
         movieDetailsList.add(movie3);
+        if(movie != null) {
+            movieDetailsList.add(movie);
+        }
 
         return movieDetailsList;
     }
