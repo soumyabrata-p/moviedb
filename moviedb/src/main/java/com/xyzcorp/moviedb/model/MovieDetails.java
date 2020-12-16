@@ -15,7 +15,8 @@ public class MovieDetails implements Serializable {
     private Long movieId;
     private String movieName;
     private String releaseYear;
-    private String rating;
+    private Integer rating;
+    private Boolean isSuperHit;
 
     public String getMovieName() {
         return movieName;
@@ -33,11 +34,11 @@ public class MovieDetails implements Serializable {
         this.releaseYear = releaseYear;
     }
 
-    public String getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 
@@ -47,5 +48,13 @@ public class MovieDetails implements Serializable {
 
     public void setMovieId(Long movieId) {
         this.movieId = movieId;
+    }
+
+    public Boolean getSuperHit() {
+        return isSuperHit;
+    }
+
+    public void setSuperHit(Boolean superHit) {
+        isSuperHit = superHit;
     }
 }
