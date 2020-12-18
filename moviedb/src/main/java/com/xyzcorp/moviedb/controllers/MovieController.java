@@ -1,6 +1,8 @@
 package com.xyzcorp.moviedb.controllers;
 
 import com.xyzcorp.moviedb.model.MovieDetails;
+import com.xyzcorp.moviedb.service.MovieDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ public class MovieController {
 
     @Value("${superhit.rating}")
     private Integer superhitRating;
+
+    @Autowired
+    private MovieDetailsService movieDetailsService;
 
     @GetMapping(value="/movieList",produces = MediaType.APPLICATION_JSON_VALUE)
     public String getMovieList(){
@@ -66,10 +71,18 @@ public class MovieController {
     }
 
     @PostMapping(value = "/addmovie", consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<MovieDetails> addMovieDetails(@RequestBody MovieDetails movie) {
+    public String addMovieDetails(@RequestBody MovieDetails movie) {
 
-        List<MovieDetails> movieDetailsList = getMovieDetailList(movie);
-        return movieDetailsList;
+        /*List<MovieDetails> movieDetailsList = getMovieDetailList(movie);
+        return movieDetailsList;*/
+        try {
+            movieDetailsService.saveMovieDetails(movie);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Failure";
+        }
+
+        return "Success";
 
     }
 

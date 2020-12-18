@@ -19,6 +19,8 @@ public class MovieDetail {
     @Column(name ="is_superhit")
     private String isSuperhit;
 
+    //DAO - Data Access Objects
+
     public Long getMovieId() {
         return movieId;
     }
