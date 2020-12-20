@@ -46,12 +46,22 @@ public class MovieController {
 
     @GetMapping(value = "/moviebyid",produces = MediaType.APPLICATION_JSON_VALUE)
     public MovieDetails getMovieById(@RequestParam Long movieId) {
-        List<MovieDetails> movieDetailsList = getMovieDetailList(null);
+        /*List<MovieDetails> movieDetailsList = getMovieDetailList(null);
         Optional<MovieDetails> details = movieDetailsList.stream().filter(x -> x.getMovieId().equals(movieId)).findFirst();
         if(details.isPresent()) {
             return details.get();
         }
-        return null;
+        return null;*/
+        MovieDetails response = null;
+
+        try{
+            response = movieDetailsService.getMovieDetailById(movieId);
+
+        }catch (Exception e){
+            throw e;
+        }
+
+        return response;
 
     }
 

@@ -18,6 +18,22 @@ public class MovieDetailsService {
 
     }
 
+    public MovieDetails getMovieDetailById(Long Id) {
+        MovieDetail movieDetailFromDb = movieDetailsDao.getMovieById(Id);
+        MovieDetails response = convertToMovieDetails(movieDetailFromDb) ;
+        return response;
+    }
+
+    private MovieDetails convertToMovieDetails(MovieDetail movieDetailFromDb) {
+        MovieDetails movieResponse = new MovieDetails();
+        movieResponse.setMovieId(movieDetailFromDb.getMovieId());
+        movieResponse.setMovieName(movieDetailFromDb.getMovieName());
+        movieResponse.setRating(movieDetailFromDb.getRating());
+        movieResponse.setReleaseYear(movieDetailFromDb.getReleaseYear());
+
+        return movieResponse;
+    }
+
 
     private MovieDetail convertToMovieDetail(MovieDetails requestDetails) {
         MovieDetail movie = new MovieDetail();
