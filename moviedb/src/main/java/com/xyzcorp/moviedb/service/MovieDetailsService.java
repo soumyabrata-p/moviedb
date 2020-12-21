@@ -6,6 +6,8 @@ import com.xyzcorp.moviedb.model.MovieDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class MovieDetailsService {
 
@@ -18,11 +20,16 @@ public class MovieDetailsService {
 
     }
 
+    public List<MovieDetail> getMovieDetailByName(String movieName) {
+         return movieDetailsDao.movieName(movieName);
+    }
+
     public MovieDetails getMovieDetailById(Long Id) {
         MovieDetail movieDetailFromDb = movieDetailsDao.getMovieById(Id);
         MovieDetails response = convertToMovieDetails(movieDetailFromDb) ;
         return response;
     }
+
 
     private MovieDetails convertToMovieDetails(MovieDetail movieDetailFromDb) {
         MovieDetails movieResponse = new MovieDetails();

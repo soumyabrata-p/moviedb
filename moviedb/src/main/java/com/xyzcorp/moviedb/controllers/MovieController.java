@@ -1,5 +1,6 @@
 package com.xyzcorp.moviedb.controllers;
 
+import com.xyzcorp.moviedb.entity.MovieDetail;
 import com.xyzcorp.moviedb.model.MovieDetails;
 import com.xyzcorp.moviedb.service.MovieDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,19 @@ public class MovieController {
 
         return response;
 
+    }
+
+    @GetMapping(value = "/moviebyname",produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<MovieDetail> getMovieByName(@RequestParam String movieName) {
+
+        List<MovieDetail> response = null;
+        try {
+            response = movieDetailsService.getMovieDetailByName(movieName);
+        }catch (Exception e){
+            throw e;
+        }
+
+        return response;
     }
 
     @GetMapping(value = "/moviebyid/{movieId}",produces = MediaType.APPLICATION_JSON_VALUE)
