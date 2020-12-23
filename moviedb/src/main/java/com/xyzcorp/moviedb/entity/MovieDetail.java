@@ -1,6 +1,7 @@
 package com.xyzcorp.moviedb.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="movie_details")
@@ -14,10 +15,16 @@ public class MovieDetail {
     private String movieName;
     @Column(name ="release_year")
     private String releaseYear;
+
+
+
     @Column(name ="rating")
     private Integer rating;
     @Column(name ="is_superhit")
     private String isSuperhit;
+
+    @OneToMany(mappedBy = "movieDetail")
+    private List<MovieTheatreDetails> movieTheatreDetailsList;
 
     //DAO - Data Access Objects
 
@@ -59,5 +66,12 @@ public class MovieDetail {
 
     public void setIsSuperhit(String isSuperhit) {
         this.isSuperhit = isSuperhit;
+    }
+    public List<MovieTheatreDetails> getMovieTheatreDetailsList() {
+        return movieTheatreDetailsList;
+    }
+
+    public void setMovieTheatreDetailsList(List<MovieTheatreDetails> movieTheatreDetailsList) {
+        this.movieTheatreDetailsList = movieTheatreDetailsList;
     }
 }

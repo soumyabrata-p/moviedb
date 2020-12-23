@@ -1,6 +1,9 @@
 package com.xyzcorp.moviedb.model;
 
+import com.xyzcorp.moviedb.entity.MovieTheatreDetails;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by s.purakayastha
@@ -14,9 +17,20 @@ public class MovieDetails implements Serializable {
 
     private Long movieId;
     private String movieName;
+
+    public List<MovieTheatreDetails> getMovieTheatreDetailsList() {
+        return movieTheatreDetailsList;
+    }
+
+    public void setMovieTheatreDetailsList(List<MovieTheatreDetails> movieTheatreDetailsList) {
+        this.movieTheatreDetailsList = movieTheatreDetailsList;
+    }
+
     private String releaseYear;
     private Integer rating;
     private Boolean isSuperHit;
+
+    private List<MovieTheatreDetails> movieTheatreDetailsList;
 
     public String getMovieName() {
         return movieName;

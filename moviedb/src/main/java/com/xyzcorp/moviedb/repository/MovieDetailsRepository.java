@@ -17,3 +17,5 @@ public interface MovieDetailsRepository extends JpaRepository<MovieDetail,Long> 
     List<MovieDetail> getMovieByName(String movieName);
 
 }
+
+

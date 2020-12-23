@@ -1,8 +1,10 @@
 package com.xyzcorp.moviedb.controllers;
 
 import com.xyzcorp.moviedb.entity.MovieDetail;
+import com.xyzcorp.moviedb.entity.MovieRegisterForm;
 import com.xyzcorp.moviedb.model.MovieDetails;
 import com.xyzcorp.moviedb.service.MovieDetailsService;
+import com.xyzcorp.moviedb.service.MovieRegisterFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -27,6 +29,9 @@ public class MovieController {
 
     @Autowired
     private MovieDetailsService movieDetailsService;
+
+    @Autowired
+    private MovieRegisterFormService movieRegisterFormService;
 
     @GetMapping(value="/movieList",produces = MediaType.APPLICATION_JSON_VALUE)
     public String getMovieList(){
@@ -79,6 +84,24 @@ public class MovieController {
         return response;
     }
 
+
+
+    @PostMapping(value = "/addmovie", consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addMovieDetails(@RequestBody MovieDetails movie) {
+
+        /*List<MovieDetails> movieDetailsList = getMovieDetailList(movie);
+        return movieDetailsList;*/
+        try {
+            movieDetailsService.saveMovieDetails(movie);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "Failure";
+        }
+
+        return "Success";
+
+    }
+
     @GetMapping(value = "/moviebyid/{movieId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public MovieDetails getMovieByIdVariable(@PathVariable("movieId") Long movieId) {
         List<MovieDetails> movieDetailsList = getMovieDetailList(null);
@@ -94,13 +117,28 @@ public class MovieController {
 
     }
 
-    @PostMapping(value = "/addmovie", consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
-    public String addMovieDetails(@RequestBody MovieDetails movie) {
+    @GetMapping(value = "/userbyid",produces = MediaType.APPLICATION_JSON_VALUE)
+    public MovieRegisterForm getUserById(@RequestParam Long userId) {
 
-        /*List<MovieDetails> movieDetailsList = getMovieDetailList(movie);
-        return movieDetailsList;*/
+        MovieRegisterForm response = null;
+
+        try{
+            response = movieRegisterFormService.getUserById(userId);
+
+        }catch (Exception e){
+            throw e;
+        }
+
+        return response;
+
+    }
+
+
+    @PostMapping(value = "/adduser", consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addMovieRegisterUser(@RequestBody MovieRegisterForm movie) {
+
         try {
-            movieDetailsService.saveMovieDetails(movie);
+            movieRegisterFormService.saveMovieRegisterUser(movie);
         }catch (Exception e){
             e.printStackTrace();
             return "Failure";
