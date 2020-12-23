@@ -21,7 +21,7 @@ public class MovieDetailsService {
     }
 
     public List<MovieDetail> getMovieDetailByName(String movieName) {
-         return movieDetailsDao.movieName(movieName);
+         return   movieDetailsDao.movieName(movieName);
     }
 
     public MovieDetails getMovieDetailById(Long Id) {
@@ -37,6 +37,7 @@ public class MovieDetailsService {
         movieResponse.setMovieName(movieDetailFromDb.getMovieName());
         movieResponse.setRating(movieDetailFromDb.getRating());
         movieResponse.setReleaseYear(movieDetailFromDb.getReleaseYear());
+        movieResponse.setMovieTheatreDetailsList(movieDetailFromDb.getMovieTheatreDetailsList());
 
         return movieResponse;
     }
