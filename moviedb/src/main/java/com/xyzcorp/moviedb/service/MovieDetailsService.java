@@ -53,4 +53,8 @@ public class MovieDetailsService {
         return movie;
 
     }
+
+    public void deleteMovieDetails(Long id) {
+        movieDetailsDao.deleteMovieDetails(id);
+    }
 }

@@ -23,7 +23,7 @@ public class MovieDetail {
     @Column(name ="is_superhit")
     private String isSuperhit;
 
-    @OneToMany(mappedBy = "movieDetail")
+    @OneToMany(mappedBy = "movieDetail",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<MovieTheatreDetails> movieTheatreDetailsList;
 
     //DAO - Data Access Objects

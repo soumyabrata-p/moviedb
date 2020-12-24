@@ -148,13 +148,25 @@ public class MovieController {
 
     }
 
-    @DeleteMapping(value = "/deletebyid", produces = MediaType.APPLICATION_JSON_VALUE)
+    /*@DeleteMapping(value = "/deletebyid", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MovieDetails> deleteMovieDetails(@RequestParam Long movieId) {
 
         List<MovieDetails> movies = getMovieDetailList(null);
         movies.removeIf(movieDetails -> movieDetails.getMovieId().equals(movieId));
 
         return movies;
+    }*/
+
+    @DeleteMapping(value = "/deletebyid", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteMovieDetails(@RequestParam Long movieId) {
+
+        try{
+            movieDetailsService.deleteMovieDetails(movieId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  "Error :"+e.getMessage();
+        }
+        return "Deleted";
     }
 
 

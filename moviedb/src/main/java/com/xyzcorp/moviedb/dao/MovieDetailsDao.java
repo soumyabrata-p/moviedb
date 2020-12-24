@@ -32,7 +32,11 @@ public class MovieDetailsDao {
             return movieDetail.get();
         }
         return null;
+    }
 
 
+    public void deleteMovieDetails(Long movieId) {
+
+        movieDetailsRepository.deleteById(movieId);
     }
 }
